@@ -86,25 +86,35 @@ class MusicController:
         # some examples:
         self._model.addTransition(0, [BTN1_PRESS], 1)
         self._model.addTransition(1, [BTN1_RELEASE], 0)
-
-        self._model.addTransition(0, [BTN5_PRESS], 9)
-        self._model.addTransition(9, [NO_EVENT], 0)
+        self._model.addTransition(1, [BTN2_PRESS], 5)
+        self._model.addTransition(5, [BTN2_RELEASE], 1)
+        self._model.addTransition(5, [BTN3_PRESS], 8)
+        self._model.addTransition(8, [BTN3_RELEASE], 0)
+        self._model.addTransition(8, [BTN2_RELEASE], 0)
+        self._model.addTransition(8, [BTN1_RELEASE], 0)
 
         self._model.addTransition(0, [BTN2_PRESS], 2)
         self._model.addTransition(2, [BTN2_RELEASE], 0)
+        self._model.addTransition(2, [BTN1_PRESS], 5)
+        self._model.addTransition(5, [BTN1_RELEASE], 2)
+        self._model.addTransition(2, [BTN3_PRESS], 6)
+        self._model.addTransition(6, [BTN3_RELEASE], 2)
+
 
         self._model.addTransition(0, [BTN3_PRESS], 3)
         self._model.addTransition(3, [BTN3_RELEASE], 0)
+        self._model.addTransition(3, [BTN2_PRESS], 6)
+        self._model.addTransition(6, [BTN2_RELEASE], 3)
+        self._model.addTransition(3, [BTN4_PRESS], 7)
+        self._model.addTransition(7, [BTN4_RELEASE], 3)
 
         self._model.addTransition(0, [BTN4_PRESS], 4)
         self._model.addTransition(4, [BTN4_RELEASE], 0)
+        self._model.addTransition(4, [BTN3_PRESS], 7)
+        self._model.addTransition(7, [BTN3_RELEASE], 4)
 
-        self._model.addTransition(1, [BTN2_PRESS], 5)
-        self._model.addTransition(5, [BTN2_RELEASE], 1)
-
-        self._model.addTransition(2, [BTN1_PRESS], 5)
-        self._model.addTransition(5, [BTN1_RELEASE], 2)
-
+        self._model.addTransition(0, [BTN5_PRESS], 9)
+        self._model.addTransition(9, [BTN5_RELEASE], 0)
 
         # etc.
 
@@ -162,22 +172,33 @@ class MusicController:
             self._buzzer.play(self._instrument.getNote(0))
             self._lights.setColor(WHITE, 16)
         elif state == 2:
-            # entry actions for state 1
+            # entry actions for state 2
             self._buzzer.play(self._instrument.getNote(1))
             self._lights.setColor(RED, 16)
         elif state == 3:
-            # entry actions for state 1
+            # entry actions for state 3
             self._buzzer.play(self._instrument.getNote(2))
             self._lights.setColor(YELLOW, 16)
         elif state == 4:
-            # entry actions for state 1
+            # entry actions for state 4
             self._buzzer.play(self._instrument.getNote(3))
             self._lights.setColor(BLUE, 16)
         elif state == 5:
-            # entry actions for state 1
+            # entry actions for state 5
             self._buzzer.play(self._instrument.getNote(4))
             self._lights.setColor(GREEN, 16)
-        
+        elif state == 6:
+            # entry actions for state 6
+            self._buzzer.play(self._instrument.getNote(5))  
+            self._lights.setColor(PINK, 16)
+        elif state == 7:
+            # entry actions for state 7
+            self._buzzer.play(self._instrument.getNote(6))   
+            self._lights.setColor(ORANGE, 16)
+        elif state == 8:
+            # entry actions for state 8
+            self._buzzer.play(self._instrument.getNote(7))   
+            self._lights.setColor(PURPLE, 16)       
         elif state == 9:
             self.changeInstrument()
             
@@ -203,6 +224,16 @@ class MusicController:
         elif state == 4:
             self.mydisplay.showText("    ** FA **")
             self._buzzer.stop()
+        elif state == 5:
+            self.mydisplay.showText("    ** SO **")
+            self._buzzer.stop()
+        elif state == 6:
+            self.mydisplay.showText("    ** LA **")
+            self._buzzer.stop()
+        elif state == 7:
+            self.mydisplay.showText("    ** TI **")
+            self._buzzer.stop()
+
         elif state == 9:
             self.mydisplay.showText("     Switch        Instrument")
             self._buzzer.stop()
